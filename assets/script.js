@@ -2,19 +2,23 @@
 let taskList = JSON.parse(localStorage.getItem("tasks"));
 let nextId = JSON.parse(localStorage.getItem("nextId"));
 
+dayjs().format();
+
 // Todo: create a function to generate a unique task id
 function generateTaskId() {
-
+    
 }
 
 // Todo: create a function to create a task card
 function createTaskCard(task) {
-
+    
 }
 
 // Todo: create a function to render the task list and make cards draggable
 function renderTaskList() {
-
+    $( function() {
+        $( "#draggable" ).draggable();
+    } );
 }
 
 // Todo: create a function to handle adding a new task
