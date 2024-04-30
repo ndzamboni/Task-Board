@@ -1,4 +1,5 @@
 // Retrieve tasks and nextId from localStorage
+
 let taskList = JSON.parse(localStorage.getItem("tasks"));
 let nextId = JSON.parse(localStorage.getItem("nextId"));
 const statusLanes = ["toDo", "inProgress", "done"];
@@ -58,10 +59,13 @@ function createTaskCard(task) {
     const cardDueDate = $("<p>").addClass("card-text").text(task.dueDate);
     const deleteButton = $("<button>").addClass("btn btn-danger delete").text("Delete");
     deleteButton.on("click", handleDeleteTask);
-    cardBody.append(cardTitle, cardText, cardStatus, cardPriority, cardDueDate, deleteButton);
-    taskCard.append(cardBody);
+    cardBody.append(cardText, cardStatus, cardPriority, cardDueDate, deleteButton);
+    taskCard.append(cardBody, cardTitle);
     return taskCard;
 }
+
+// function to print card data
+
 
 // Sets the card background color based on due date. Card colors are based on the following: past due, due today, due tomorrow. 
 function setCardColor(taskCard, dueDate) {
@@ -112,10 +116,20 @@ function handleAddTask(event){
         dueDate: dueDate.val()
     };
     // taskList.push(task); no longer needed
-    if (taskList) {
-        taskList.push(task);
+    if (taskStatusValue === "to-do") {
+        task.status = "toDo";
+    } else if (taskStatusValue === "in-progress") {
+        task.status = "inProgress";
+    } else if (taskStatusValue === "done") {
+        task.status = "done";
     } else {
+        // Handle any other cases or defaults
+    }
+
+    if (!taskList) {
         taskList = [task];
+    } else {
+        taskList.push(task);
     }
     storeTasks(taskList);
     renderTaskList();
@@ -140,8 +154,9 @@ function handleDrop(event, ui) {
     task.status = $(this).attr("id");
     storeTasks(taskList);
     renderTaskList();
-
 }
+
+// taskForm.on('submit', handleAddTask);
 
 // Todo: when the page loads, render the task list, add event listeners, make lanes droppable, and make the due date field a date picker
 $(document).ready(function () {
