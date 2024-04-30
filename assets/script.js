@@ -126,11 +126,8 @@ function handleAddTask(event){
         // Handle any other cases or defaults
     }
 
-    if (!taskList) {
-        taskList = [task];
-    } else {
-        taskList.push(task);
-    }
+    taskList = getTasks();
+    taskList.push(task);
     storeTasks(taskList);
     renderTaskList();
     taskForm[0].reset();
@@ -162,10 +159,8 @@ function handleDrop(event, ui) {
 $(document).ready(function () {
     // Bind event listener to form submission
     taskForm.on('submit', handleAddTask);
-    
     // Bind event listener to delete button clicks
     $(document).on('click', '.delete', handleDeleteTask);
-    
     // Render task list when the page is ready
     renderTaskList();
 });
