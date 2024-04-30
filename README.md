@@ -6,6 +6,10 @@ Create a simple task board application that allows a team to manage project task
 
 You'll need to use the [Day.js](https://day.js.org/en/) library to work with dates. Be sure to read the documentation carefully and concentrate on using Day.js in the browser.
 
+![alt text](./assets/task-board-1.PNG)
+![alt text](./assets/task-board-2.PNG) 
+
+
 ## User Story
 
 ```md
