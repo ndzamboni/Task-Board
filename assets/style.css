@@ -15,5 +15,9 @@ body {
   cursor: grab;
 }
 
+#done.ui-droppable .project-card {
+  background-color: white !important;
+}
+
 
 
