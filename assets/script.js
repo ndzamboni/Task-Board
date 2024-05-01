@@ -9,11 +9,7 @@ $(document).ready(function () {
     const inProgressList = $('#in-progress-cards');
     const doneList = $('#done-cards');
 
-    // Helper function to display current time
-    function displayTime() {
-        timeDisplayEl.text(dayjs().format('MMM DD, YYYY [at] hh:mm:ss a'));
-    }
-
+    
     // Function to read projects from local storage
     function readProjectsFromStorage() {
         return JSON.parse(localStorage.getItem('projects')) || [];
