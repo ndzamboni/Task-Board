@@ -119,10 +119,16 @@ $(document).ready(function () {
         const projects = readProjectsFromStorage();
         const taskId = ui.draggable.attr('data-project-id');
         const newStatus = event.target.id;
+    
         // Find the dropped project and update its status
         const droppedProject = projects.find(project => project.id === taskId);
         if (droppedProject) {
             droppedProject.status = newStatus;
+    
+            // If the dropped project is moved to the "done" lane, remove background color class
+            if (newStatus === 'done') {
+                ui.draggable.removeClass('bg-danger bg-warning').addClass('bg-white');
+            }
         }
         // Save the updated projects to localStorage
         saveProjectsToStorage(projects);
