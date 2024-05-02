@@ -16,7 +16,7 @@ body {
 }
 
 #done.ui-droppable .project-card {
-  background-color: white !important;
+  background-color: green !important;
 }
 
 
