@@ -1,5 +1,4 @@
 $(document).ready(function () {
-    const timeDisplayEl = $('#time-display');
     const projectFormEl = $('#taskForm');
     const projectNameInputEl = $('#taskName');
     const projectTypeInputEl = $('#taskDescription');
@@ -29,10 +28,31 @@ $(document).ready(function () {
         const cardDueDate = $('<p>').addClass('card-text').text(project.dueDate);
         const cardDeleteBtn = $('<button>').addClass('btn btn-danger delete').text('Delete').attr('data-project-id', project.id);
         cardDeleteBtn.on('click', handleDeleteProject);
-        const today = dayjs();
-        const dueDate = dayjs(project.dueDate, 'YYYY-MM-DD');
-        const daysDifference = dueDate.diff(today, 'days');
-        taskCard.addClass(daysDifference < 0 ? 'bg-danger' : (daysDifference === 0 ? 'bg-warning' : 'bg-white'));
+        const today = dayjs().startOf('day');
+        const dueDate = dayjs(project.dueDate, 'YYYY-MM-DD').startOf('day');
+        const daysDifference = dueDate.diff(today, 'day');
+
+// originially had the code using exact day, time, hour, minute, second, millisecond, etc. 
+// but it was not working so I changed it to startOf('day') in order to get full number difference. 
+// Commented out the original code below. but can use if needed. 
+
+        // const today = dayjs();
+        console.log('today',today);
+        // const dueDate = dayjs(project.dueDate, 'YYYY-MM-DD');
+        console.log('dueDate',dueDate);
+        // const daysDifference = dueDate.diff(today, 'days');
+        if (daysDifference < 0) {
+            console.log('daysDifference',daysDifference); 
+            taskCard.addClass('bg-danger');
+        } else if (daysDifference === 0) { 
+            console.log('daysDifference',daysDifference);
+            taskCard.addClass('bg-warning');
+        } else { 
+            console.log('daysDifference',daysDifference);
+            taskCard.addClass('bg-white');}
+
+
+        // taskCard.addClass(daysDifference < 0 ? 'bg-danger' : (daysDifference === 0 ? 'bg-warning' : 'bg-white'));
         cardBody.append(cardDescription, cardDueDate, cardDeleteBtn);
         taskCard.append(cardHeader, cardBody);
         return taskCard;
@@ -128,10 +148,6 @@ $(document).ready(function () {
     $('#formModal').on('click', '.btn-primary', function () {
         formModalEl.modal('hide');
     });
-
-    // Call displayTime function once on page load and then every second after that
-    displayTime();
-    setInterval(displayTime, 1000);
 
     // Print project data to the screen on page load if there is any
     printProjectData();
